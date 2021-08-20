@@ -1,6 +1,6 @@
 # BookStore_Andreas
 
-## Anforderungen
+## Funktionale Anforderungen
 
 * F.1: Das System muss Bücher speichern können.
 Zu einem Buch gehört jeweils ein Identifikator, ein Titel, ein Autor, ein Erscheinungsjahr, ein Preis und eine Menge.
@@ -46,6 +46,8 @@ Die Kosten berechnen sich aus der Anzahl an Exemplaren multipliziert mit dem Pre
 Dazu müssen mehrere Bücher ausgewählt werden können.
 Das System muss zusätzlich zur Auswahl der Bücher eine Möglichkeit bereit stellen, die gewünschte Anzahl an Exemplaren sowie den gewährten Rabatt anzugeben.
 Das System muss dem Nutzer dabei die aktuellen Kosten sowohl der einzelnen Rechnungspositionen als auch der gesamten Rechnung anzeigen.
+
+## Nicht-funktionale Anforderungen
 
 * N.1: Das System muss über ein Backend und eine Benutzerschnittstelle verfügen.
 Das Backend muss in Spring Boot implementiert werden, die Benutzerschnittstelle in Thymeleaf.
