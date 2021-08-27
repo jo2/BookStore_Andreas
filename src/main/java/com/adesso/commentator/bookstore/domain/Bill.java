@@ -1,25 +1,27 @@
 package com.adesso.commentator.bookstore.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
-public @Data class Bill {
+@Data
+@AllArgsConstructor
+public class Bill {
 
     private static long billCount;
 
     private final long id;
 
-    private final LocalDate date;
+    private LocalDateTime date;
 
     private final List<BillingBook> books;
 
-    private final double totalPrice;
+    private double totalPrice;
 
     public Bill(List<BillingBook> books) {
         id = billCount++;
-        date = LocalDate.now();
         this.books = books;
         this.totalPrice = books.stream().map(BillingBook::getTotalAmount).reduce(Double::sum).orElse(0.0);
     }

@@ -1,8 +1,13 @@
 package com.adesso.commentator.bookstore.adapter.out.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class BillingBook {
 
     @Id

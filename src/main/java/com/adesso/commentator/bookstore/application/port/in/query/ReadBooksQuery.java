@@ -8,7 +8,7 @@ public interface ReadBooksQuery {
 
     Book readBookById(long id);
 
-    List<Book> readAllBook();
+    List<Book> readAllBooks();
 
 
 

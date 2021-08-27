@@ -4,6 +4,6 @@ import com.adesso.commentator.bookstore.domain.Bill;
 
 public interface BuyBooksUseCase {
 
-    void buyBooks(Bill bill);
+    Bill buyBooks(Bill bill);
 
 }
