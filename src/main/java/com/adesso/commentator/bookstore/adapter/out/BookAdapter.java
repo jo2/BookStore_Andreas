@@ -3,6 +3,7 @@ package com.adesso.commentator.bookstore.adapter.out;
 import com.adesso.commentator.bookstore.adapter.out.repositories.BookRepository;
 import com.adesso.commentator.bookstore.application.port.out.CreateBookPort;
 import com.adesso.commentator.bookstore.application.port.out.DeleteBookPort;
+import com.adesso.commentator.bookstore.application.port.out.EditBookPort;
 import com.adesso.commentator.bookstore.application.port.out.ReadBooksPort;
 import com.adesso.commentator.bookstore.domain.Book;
 import lombok.AllArgsConstructor;
@@ -14,13 +15,13 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Component("Book adapter")
-public class BookAdapter implements ReadBooksPort, CreateBookPort, DeleteBookPort {
+public class BookAdapter implements ReadBooksPort, CreateBookPort, DeleteBookPort, EditBookPort {
 
     private final BookRepository repository;
 
     @Override
     public Book createBook(Book book) {
-        return toDomain(repository.save(toDto(book)));
+        return Mapper.toDomain(repository.save(Mapper.toDto(book)));
     }
 
     @Override
@@ -34,37 +35,19 @@ public class BookAdapter implements ReadBooksPort, CreateBookPort, DeleteBookPor
                 books = new ArrayList<>();
         repository.findAll().forEach(books::add);
         return books.stream()
-                .map(BookAdapter::toDomain)
+                .map(Mapper::toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Book readBookById(long bookId) {
         return repository.findById(bookId)
-                .map(BookAdapter::toDomain)
+                .map(Mapper::toDomain)
                 .orElse(null);
     }
 
-    private static Book toDomain(com.adesso.commentator.bookstore.adapter.out.entities.Book bookDto) {
-        return new Book(
-                bookDto.id,
-                bookDto.title,
-                bookDto.author,
-                bookDto.price,
-                bookDto.publicationYear,
-                bookDto.stockAmount
-        );
-    }
-
-    private static com.adesso.commentator.bookstore.adapter.out.entities.Book toDto(Book book) {
-        return new com.adesso.commentator.bookstore.adapter.out.entities.Book(
-                book.getId(),
-                book.getTitle(),
-                book.getAuthor(),
-                book.getPrice(),
-                book.getPublicationYear(),
-                book.getStockAmount()
-        );
-
+    @Override
+    public Book editBook(Book book) {
+        return Mapper.toDomain(repository.save(Mapper.toDto(book)));
     }
 }

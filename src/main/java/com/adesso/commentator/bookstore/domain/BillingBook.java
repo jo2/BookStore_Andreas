@@ -1,48 +1,32 @@
 package com.adesso.commentator.bookstore.domain;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.Valid;
 
-public class BillingBook {
+public @Data class BillingBook {
 
     private static long bookCount;
 
-    @Getter
     private final long id;
 
-    @Getter
-    @Setter
     private long bookId;
 
-    @Getter
-    @Setter
     private String title;
 
-    @Getter
-    @Setter
     private String author;
 
-    @Getter
-    @Setter
     private int publicationYear;
 
-    @Getter
-    @Setter
     private int orderAmount;
 
-    @Getter
-    @Setter
     private double discount;
 
-    @Getter
-    @Setter
     private double price;
 
-    @Getter
-    @Setter
     private double totalAmount;
 
     public BillingBook(@Valid Book book, int orderAmount, double discount) {

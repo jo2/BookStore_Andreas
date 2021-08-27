@@ -4,5 +4,5 @@ import com.adesso.commentator.bookstore.domain.Book;
 
 public interface CreateBookUseCase {
 
-    void createBook(Book book);
+    Book createBook(Book book);
 }

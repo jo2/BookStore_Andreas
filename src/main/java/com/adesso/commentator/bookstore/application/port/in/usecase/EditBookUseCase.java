@@ -4,6 +4,6 @@ import com.adesso.commentator.bookstore.domain.Book;
 
 public interface EditBookUseCase {
 
-    void editBook(Book book);
+    Book editBook(Book book);
 
 }
