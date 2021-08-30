@@ -1,5 +1,7 @@
 package com.adesso.commentator.bookstore.adapter.in.web;
 
+import com.adesso.commentator.bookstore.adapter.in.dto.BillDto;
+import com.adesso.commentator.bookstore.application.port.in.mapper.Mapper;
 import com.adesso.commentator.bookstore.application.port.in.query.ReadBillsQuery;
 import com.adesso.commentator.bookstore.application.port.in.query.ReadBooksQuery;
 import com.adesso.commentator.bookstore.application.port.in.usecase.BuyBooksUseCase;
@@ -9,6 +11,8 @@ import com.adesso.commentator.bookstore.application.port.in.usecase.EditBookUseC
 import com.adesso.commentator.bookstore.domain.Bill;
 import com.adesso.commentator.bookstore.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,14 +40,18 @@ public class ApiController {
     @Autowired
     private EditBookUseCase editBookUseCase;
 
-    @GetMapping("books/all")
+    @Autowired
+    private Mapper mapper;
+
+    @GetMapping("book/all")
     public List<Book> getAllBooks() {
         return readBooksQuery.readAllBooks();
     }
 
     @GetMapping("book/{id}")
-    public Book getBookById(@PathVariable("id") long id) {
-        return readBooksQuery.readBookById(id);
+    public ResponseEntity<Book> getBookById(@PathVariable("id") long id) {
+        Book b = readBooksQuery.readBookById(id);
+        return new ResponseEntity<>(b, b != null? HttpStatus.OK: HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("book/create")
@@ -51,14 +59,20 @@ public class ApiController {
         return createBookUseCase.createBook(book);
     }
 
-    @PostMapping("books/edit")
+    @PostMapping("book/edit")
     public Book editBook(@RequestBody @Valid Book book) {
         return editBookUseCase.editBook(book);
     }
 
+    @PostMapping("book/delete/{id}")
+    public void deleteBook(@PathVariable("id") long id) {
+        deleteBookUseCase.deleteBookById(id);
+    }
+
     @PostMapping("bill/create")
-    public Bill buyBooks(@RequestBody @Valid Bill bill) {
-        return buyBooksUseCase.buyBooks(bill);
+    public Bill buyBooks(@RequestBody @Valid BillDto bill) {
+        Bill domainBill = mapper.toDomain(bill);
+        return buyBooksUseCase.buyBooks(domainBill);
     }
 
     @GetMapping("bill/all")

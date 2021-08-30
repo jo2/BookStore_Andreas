@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.Valid;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 public @Data class BillingBook {
 
-    private static long bookCount;
-
-    private final long id;
+    private final Long id;
 
     private long bookId;
 
@@ -29,25 +31,19 @@ public @Data class BillingBook {
 
     private double totalAmount;
 
-    public BillingBook(@Valid Book book, int orderAmount, double discount) {
-        this.id = bookCount++;
+    public BillingBook(@Valid Book book, @Min(1) @Max(6) int orderAmount, @DecimalMin("0") @DecimalMax("20") double discount) {
+        this.id = null;
         this.bookId = book.getId();
         this.title = book.getTitle();
         this.author = book.getAuthor();
         this.publicationYear = book.getPublicationYear();
 
-        if (orderAmount < 1 || orderAmount > 6)
-            throw new IllegalArgumentException("order Amount out of range");
-
         this.orderAmount = orderAmount;
-
-        if (discount < 0 || discount > 20)
-            throw new IllegalArgumentException("discount out of range");
 
         this.discount = discount;
 
         this.price = book.getPrice();
 
-        this.totalAmount = price * orderAmount * (1-(discount/100));
+        this.totalAmount = Math.round(price * orderAmount * (1-(discount/100))*100)/100.0;
     }
 }

@@ -18,10 +18,9 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="bill_id")
-    public long id;
+    public Long id;
 
-    @CreatedDate
-    @Column(name="date", columnDefinition = "TEMPORAL")
+    @Column(name="date")
     public LocalDateTime date;
 
     @Column(name="total_price")
