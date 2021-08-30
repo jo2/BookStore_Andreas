@@ -13,10 +13,10 @@ public class BillingBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="billing_book_id")
-    public long id;
+    public Long id;
 
     @Column(name="book_id")
-    public long bookId;
+    public Long bookId;
 
     @Column(name="title")
     public String title;

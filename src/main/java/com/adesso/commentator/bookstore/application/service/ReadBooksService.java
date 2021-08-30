@@ -23,4 +23,9 @@ public class ReadBooksService implements ReadBooksQuery {
     public List<Book> readAllBooks() {
         return readBooksPort.readAllBooks();
     }
+
+    @Override
+    public boolean existsBookByTitleAndAuthor(String title, String author) {
+        return readBooksPort.existsBookByTitleAndAuthor(title, author);
+    }
 }

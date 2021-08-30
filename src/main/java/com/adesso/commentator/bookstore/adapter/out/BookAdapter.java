@@ -47,6 +47,11 @@ public class BookAdapter implements ReadBooksPort, CreateBookPort, DeleteBookPor
     }
 
     @Override
+    public boolean existsBookByTitleAndAuthor(String title, String author) {
+        return repository.existsBookByTitleAndAuthor(title, author);
+    }
+
+    @Override
     public Book editBook(Book book) {
         return Mapper.toDomain(repository.save(Mapper.toDto(book)));
     }

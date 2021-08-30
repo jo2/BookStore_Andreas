@@ -1,7 +1,9 @@
 package com.adesso.commentator.bookstore.adapter.in.dto;
 
+import java.util.List;
+import lombok.Data;
+
+@Data
 public class BillDto {
-    //TODO: Create class
-    //TODO: books as ids
-    //TODO: read books by id in BuyBooksService
+    private List<BillBookDto> books;
 }

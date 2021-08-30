@@ -10,7 +10,7 @@ public @Data class Book {
 
     private final long id;
 
-    @Size(min=2, max=20)
+    @Size(min=2, max=30)
     private String title;
 
     @Size(min=2, max=20)

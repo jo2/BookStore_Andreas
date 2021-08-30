@@ -32,7 +32,11 @@ public class BuyBooksService implements BuyBooksUseCase {
             editBookPort.editBook(b);
         });
         bill.setTotalPrice(
-                bill.getBooks().stream().map(BillingBook::getTotalAmount).reduce(Double::sum).orElse(0.0)
+                Math.round(
+                    bill.getBooks().stream().map(BillingBook::getTotalAmount).reduce(Double::sum).orElse(0.0)
+                            *100
+                )/100.0
+                //Makes sure to only have 2 digits for the price
         );
         return createBillPort.createBill(bill);
     }

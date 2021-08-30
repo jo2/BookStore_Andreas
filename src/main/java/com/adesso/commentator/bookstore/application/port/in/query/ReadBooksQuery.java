@@ -10,6 +10,6 @@ public interface ReadBooksQuery {
 
     List<Book> readAllBooks();
 
-
+    boolean existsBookByTitleAndAuthor(String title, String author);
 
 }

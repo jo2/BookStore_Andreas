@@ -10,9 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Bill {
 
-    private static long billCount;
-
-    private final long id;
+    private final Long id;
 
     private LocalDateTime date;
 
@@ -21,8 +19,8 @@ public class Bill {
     private double totalPrice;
 
     public Bill(List<BillingBook> books) {
-        id = billCount++;
+        id = null;
+        date = LocalDateTime.now();
         this.books = books;
-        this.totalPrice = books.stream().map(BillingBook::getTotalAmount).reduce(Double::sum).orElse(0.0);
     }
 }
