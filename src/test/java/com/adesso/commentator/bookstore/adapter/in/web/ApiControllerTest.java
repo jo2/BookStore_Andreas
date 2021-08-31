@@ -66,7 +66,7 @@ public class ApiControllerTest {
 
         when(readBooksQuery.readBookById(book.getId())).thenReturn(book);
 
-        assertThat(controller.getBookById(book.getId()).getBody()).isEqualTo(book);
+        assertThat(controller.getBookById(book.getId())).isEqualTo(book);
     }
 
     @Test

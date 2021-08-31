@@ -15,6 +15,8 @@ public @Data class BillingBook {
 
     private final Long id;
 
+    private Long billId;
+
     private long bookId;
 
     private String title;

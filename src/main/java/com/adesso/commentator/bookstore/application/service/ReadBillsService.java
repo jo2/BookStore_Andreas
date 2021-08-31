@@ -6,6 +6,7 @@ import com.adesso.commentator.bookstore.domain.Bill;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -21,6 +22,8 @@ public class ReadBillsService implements ReadBillsQuery {
 
     @Override
     public List<Bill> readAllBills() {
-        return readBillsPort.readAllBills();
+        List<Bill> bills = readBillsPort.readAllBills();
+        bills.sort(Comparator.comparing(Bill::getDate));
+        return bills;
     }
 }

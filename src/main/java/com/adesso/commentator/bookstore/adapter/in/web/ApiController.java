@@ -51,10 +51,8 @@ public class ApiController {
     }
 
     @GetMapping("book/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable("id") long id) {
-        Book b = readBooksQuery.readBookById(id);
-        if (b == null) throw new EntityWithIdNotFondException(Book.class, id, "Entity With id not found");
-        return new ResponseEntity<>(b, HttpStatus.OK);
+    public Book getBookById(@PathVariable("id") long id) {
+        return readBooksQuery.readBookById(id);
     }
 
     @PostMapping("book/create")
