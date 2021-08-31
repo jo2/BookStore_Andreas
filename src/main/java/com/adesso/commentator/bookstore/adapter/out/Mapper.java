@@ -26,6 +26,7 @@ public class Mapper {
          if (book == null) return null;
         return new BillingBook(
                 book.getId(),
+                book.getBillId(),
                 book.getBookId(),
                 book.getTitle(),
                 book.getAuthor(),

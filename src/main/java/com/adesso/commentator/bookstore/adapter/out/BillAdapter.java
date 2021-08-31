@@ -21,8 +21,10 @@ public class BillAdapter implements ReadBillsPort, CreateBillPort {
 
     @Override
     public Bill createBill(Bill bill) {
-        billingBookRepository.saveAll(bill.getBooks().stream().map(Mapper::toDto).collect(Collectors.toList()));
-        return Mapper.toDomain(repository.save(Mapper.toDto(bill)));
+        Bill b = Mapper.toDomain(repository.save(Mapper.toDto(bill)));
+        b.getBooks().forEach(book -> book.setBillId(b.getId()));
+        billingBookRepository.saveAll(b.getBooks().stream().map(Mapper::toDto).collect(Collectors.toList()));
+        return b;
     }
 
     @Override

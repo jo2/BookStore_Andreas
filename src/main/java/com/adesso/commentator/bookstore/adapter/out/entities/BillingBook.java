@@ -15,6 +15,9 @@ public class BillingBook {
     @Column(name="billing_book_id")
     public Long id;
 
+    @Column(name="bill_id")
+    public Long billId;
+
     @Column(name="book_id")
     public Long bookId;
 

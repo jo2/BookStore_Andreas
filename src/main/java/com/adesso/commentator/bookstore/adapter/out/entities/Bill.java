@@ -26,6 +26,6 @@ public class Bill {
     @Column(name="total_price")
     public double totalPrice;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "billId")
     public List<BillingBook> books;
 }
