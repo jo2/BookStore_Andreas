@@ -10,11 +10,13 @@ import com.adesso.commentator.bookstore.application.port.in.usecase.DeleteBookUs
 import com.adesso.commentator.bookstore.application.port.in.usecase.EditBookUseCase;
 import com.adesso.commentator.bookstore.domain.Bill;
 import com.adesso.commentator.bookstore.domain.Book;
+import com.adesso.commentator.bookstore.error.EntityWithIdNotFondException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -51,7 +53,8 @@ public class ApiController {
     @GetMapping("book/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable("id") long id) {
         Book b = readBooksQuery.readBookById(id);
-        return new ResponseEntity<>(b, b != null? HttpStatus.OK: HttpStatus.NOT_FOUND);
+        if (b == null) throw new EntityWithIdNotFondException(Book.class, id, "Entity With id not found");
+        return new ResponseEntity<>(b, HttpStatus.OK);
     }
 
     @PostMapping("book/create")

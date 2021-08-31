@@ -6,7 +6,9 @@ import com.adesso.commentator.bookstore.application.port.out.DeleteBookPort;
 import com.adesso.commentator.bookstore.application.port.out.EditBookPort;
 import com.adesso.commentator.bookstore.application.port.out.ReadBooksPort;
 import com.adesso.commentator.bookstore.domain.Book;
+import com.adesso.commentator.bookstore.error.EntityWithIdNotFondException;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -26,7 +28,11 @@ public class BookAdapter implements ReadBooksPort, CreateBookPort, DeleteBookPor
 
     @Override
     public void deleteBookById(long bookId) {
-        repository.deleteById(bookId);
+        try {
+            repository.deleteById(bookId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityWithIdNotFondException(Book.class, bookId, e.getLocalizedMessage());
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.adesso.commentator.bookstore.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.*;
 
@@ -19,8 +20,7 @@ public @Data class Book {
     @DecimalMin("1.0")
     private double price;
 
-    @Min(1000)
-    @Max(2050)
+    @Range(min=1000, max=2050L)
     private int publicationYear;
 
     @Min(0)
