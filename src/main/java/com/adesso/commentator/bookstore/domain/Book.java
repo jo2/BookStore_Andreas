@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 public @Data class Book {
 
-    private final long id;
+    private Long id;
 
     @Size(min=2, max=30)
     private String title;
