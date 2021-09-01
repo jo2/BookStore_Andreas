@@ -53,6 +53,11 @@ public class BookAdapter implements ReadBooksPort, CreateBookPort, DeleteBookPor
     }
 
     @Override
+    public Long readIdByTitleAndAuthor(String title, String author) {
+        return repository.findBookByTitleAndAuthor(title, author).id;
+    }
+
+    @Override
     public boolean existsBookByTitleAndAuthor(String title, String author) {
         return repository.existsBookByTitleAndAuthor(title, author);
     }

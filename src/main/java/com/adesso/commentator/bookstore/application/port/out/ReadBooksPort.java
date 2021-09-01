@@ -11,4 +11,5 @@ public interface ReadBooksPort {
     List<Book> readAllBooks();
     Book readBookById(long bookId);
     boolean existsBookByTitleAndAuthor(String title, String author);
+    Long readIdByTitleAndAuthor(String title, String author);
 }
