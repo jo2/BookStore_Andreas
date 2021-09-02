@@ -158,11 +158,17 @@ public class PageController {
     }
 
     @PostMapping("/cart/buy")
-    public String buy(HttpSession session) {
+    public String buy(HttpSession session, RedirectAttributes attributes) {
         BillDto bill = new BillDto();
         bill.setBooks(getCartQuery.getCart(session.getId()));
-        buyBooksUseCase.buyBooks(mapper.toDomain(bill));
-        return "redirect:/accounting";
+        try {
+            buyBooksUseCase.buyBooks(mapper.toDomain(bill));
+            clearCartUseCase.clearCart(session.getId());
+            return "redirect:/accounting";
+        } catch(Exception e) {
+            attributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/cart";
+        }
     }
 
     @PostMapping("/cart/clear")

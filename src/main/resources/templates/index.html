@@ -42,7 +42,7 @@
                 </button>
             </form>
             <form id="addToCart" method="post" th:action="'/cart/add/' + ${book.id}">
-                <button type="submit" class="btn btn-info">
+                <button type="submit" class="btn btn-info" th:if="${book.stockAmount > 0}">
                     Add to Card
                 </button>
             </form>

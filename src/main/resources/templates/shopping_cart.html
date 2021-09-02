@@ -70,6 +70,7 @@
                 <button class="btn btn-danger btn-block clear-cart" type="submit">Clear cart</button>
             </form>
         </div>
+        <p th:if="${error} ne null" th:text="${error}" class="alert alert-primary" style="color:red"></p>
     </div>
     <div th:if="${cart == null}">
         <p>Woah... this emptiness of you cart</p>
