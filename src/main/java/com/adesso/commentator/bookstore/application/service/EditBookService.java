@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -18,7 +19,8 @@ public class EditBookService implements EditBookUseCase {
 
     @Override
     public Book editBook(@Valid Book book) {
-        if (readBooksPort.readIdByTitleAndAuthor(book.getTitle(), book.getAuthor()) != book.getId()) {
+        Long foundId = readBooksPort.readIdByTitleAndAuthor(book.getTitle(), book.getAuthor());
+        if (foundId == null || !Objects.equals(foundId, book.getId())) {
             throw new IllegalArgumentException("Combination of Title and Author must be unique");
         }
         return editBookPort.editBook(book);

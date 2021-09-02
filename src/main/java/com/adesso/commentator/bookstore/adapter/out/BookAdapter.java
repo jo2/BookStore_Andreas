@@ -54,7 +54,9 @@ public class BookAdapter implements ReadBooksPort, CreateBookPort, DeleteBookPor
 
     @Override
     public Long readIdByTitleAndAuthor(String title, String author) {
-        return repository.findBookByTitleAndAuthor(title, author).id;
+        com.adesso.commentator.bookstore.adapter.out.entities.Book
+                b = repository.findBookByTitleAndAuthor(title, author);
+        return b == null? null: b.id;
     }
 
     @Override

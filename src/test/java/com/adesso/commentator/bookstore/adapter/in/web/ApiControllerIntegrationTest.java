@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -32,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 @Transactional
 public class ApiControllerIntegrationTest {
 
@@ -51,6 +53,7 @@ public class ApiControllerIntegrationTest {
     @BeforeEach
     public void init() {
         List<Book> books = MockData.getMockedBooks();
+        System.out.println(books);
         bookRepository.saveAll(books.stream().map(Mapper::toDto).collect(Collectors.toList()));
 
         List<Bill> bills = MockData.getMockedBills();
@@ -75,11 +78,11 @@ public class ApiControllerIntegrationTest {
         mvc.perform(get("/api/book/all"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(3))
-                .andExpect(jsonPath("$[0].id").value("1"))
-                .andExpect(jsonPath("$[0].title").value("ti"))
-                .andExpect(jsonPath("$[0].author").value("au"))
-                .andExpect(jsonPath("$[0].publicationYear").value("2020"))
-                .andExpect(jsonPath("$[0].stockAmount").value("4"));
+                .andExpect(jsonPath("$[2].id").value("1"))
+                .andExpect(jsonPath("$[2].title").value("ti"))
+                .andExpect(jsonPath("$[2].author").value("au"))
+                .andExpect(jsonPath("$[2].publicationYear").value("2020"))
+                .andExpect(jsonPath("$[2].stockAmount").value("4"));
     }
 
     @Test
