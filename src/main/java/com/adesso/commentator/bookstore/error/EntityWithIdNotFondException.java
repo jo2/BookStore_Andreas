@@ -11,9 +11,9 @@ public class EntityWithIdNotFondException extends IllegalArgumentException {
     Class<?> entityType;
     Long id;
 
-    public EntityWithIdNotFondException(Class<?> entitytype, Long id, String message) {
+    public EntityWithIdNotFondException(Class<?> entityType, Long id, String message) {
         super(message);
-        this.entityType = entitytype;
+        this.entityType = entityType;
         this.id = id;
     }
 }

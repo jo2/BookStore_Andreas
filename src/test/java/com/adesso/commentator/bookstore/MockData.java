@@ -14,15 +14,15 @@ import java.util.List;
 public class MockData {
 
     public static Book getMockedBook() {
-        return new Book(1, "ti", "au", 1.0, 2020, 4);
+        return new Book(1L, "ti", "au", 1.0, 2020, 4);
     }
 
     public static Book getMockedBook_b() {
-        return  new Book(2, "Hello World", "Programmer", 404, 1970, 42);
+        return  new Book(2L, "Hello World", "Programmer", 404, 1970, 42);
     }
 
     public static Book getMockedBook_c() {
-        return new Book(3, "Error 418", "Teapot", 4.18, 1999, 418);
+        return new Book(3L, "Error 418", "Teapot", 4.18, 1999, 418);
     }
 
     public static List<Book> getMockedBooks() {

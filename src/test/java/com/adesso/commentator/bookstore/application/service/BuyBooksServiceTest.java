@@ -30,7 +30,7 @@ public class BuyBooksServiceTest {
 
 
     @Test
-    public void buyBooks() {
+    public void buyBooks_enoughBooks() {
         Book book = MockData.getMockedBook();
         Bill bill = MockData.getMockedBill();
 
@@ -43,6 +43,20 @@ public class BuyBooksServiceTest {
 
         verify(editBookPort).editBook(book);
         verify(createBillPort).createBill(bill);
+    }
+
+    @Test
+    public void buyBooks_notEnoughBooks() {
+        Book book = MockData.getMockedBook();
+        book.setStockAmount(0);
+        Bill bill = MockData.getMockedBill();
+
+        when(readBooksPort.readBookById(1)).thenReturn(book);
+
+        assertThatThrownBy(()->buyBooksService.buyBooks(bill))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContainingAll("not enough");
+
     }
 
 }

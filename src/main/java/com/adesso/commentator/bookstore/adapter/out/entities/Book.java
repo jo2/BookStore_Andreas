@@ -1,13 +1,16 @@
 package com.adesso.commentator.bookstore.adapter.out.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Book {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
