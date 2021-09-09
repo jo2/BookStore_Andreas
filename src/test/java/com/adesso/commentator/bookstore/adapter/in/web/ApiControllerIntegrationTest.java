@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
-public class ApiControllerIntegrationTest {
+class ApiControllerIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
@@ -73,7 +73,7 @@ public class ApiControllerIntegrationTest {
     }
 
     @Test
-    public void getAllBooks() throws Exception {
+    void getAllBooks() throws Exception {
 
         mvc.perform(get("/api/book/all"))
                 .andExpect(status().isOk())
@@ -86,7 +86,7 @@ public class ApiControllerIntegrationTest {
     }
 
     @Test
-    public void getBook_existing() throws Exception {
+    void getBook_existing() throws Exception {
 
         mvc.perform(get("/api/book/1"))
                 .andExpect(status().isOk())
@@ -98,14 +98,14 @@ public class ApiControllerIntegrationTest {
     }
 
     @Test
-    public void getBook_notExisting() throws Exception {
+    void getBook_notExisting() throws Exception {
 
         mvc.perform(get("/api/book/404"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void createBook_valid() throws Exception{
+    void createBook_valid() throws Exception{
         String payload = "{\n" +
                 "\t\"title\":\"Static fields and spring\",\n" +
                 "\t\"author\":\"SQL error\",\n" +
@@ -123,7 +123,7 @@ public class ApiControllerIntegrationTest {
     }
 
     @Test
-    public void createBook_validationError() throws Exception{
+    void createBook_validationError() throws Exception{
         String payload = "{" +
                 "\"title\":\"a\"," +
                 "\"author\":\"SQL error\"," +
@@ -139,7 +139,7 @@ public class ApiControllerIntegrationTest {
     }
 
     @Test
-    public void createBook_notEnoughArguments() throws Exception {
+    void createBook_notEnoughArguments() throws Exception {
 
         String payload = "{" +
                 "\"title\":\"Static fields and spring\"," +

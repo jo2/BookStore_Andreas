@@ -15,16 +15,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class ReadBillsServiceTest {
+class ReadBillsServiceTest {
 
     @Mock
-    public ReadBillsPort readBillsPort;
+    private ReadBillsPort readBillsPort;
 
     @InjectMocks
-    public ReadBillsService readBillsService;
+    private ReadBillsService readBillsService;
 
     @Test
-    public void readBillById() {
+    void readBillById() {
         Bill bill = MockData.getMockedBill();
 
         when(readBillsPort.readBillById(1)).thenReturn(bill);
@@ -33,7 +33,7 @@ public class ReadBillsServiceTest {
     }
 
     @Test
-    public void readAllBills() {
+    void readAllBills() {
         List<Bill> bills = MockData.getMockedBills();
 
         when(readBillsPort.readAllBills()).thenReturn(bills);

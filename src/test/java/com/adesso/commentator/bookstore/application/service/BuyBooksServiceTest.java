@@ -16,21 +16,21 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-public class BuyBooksServiceTest {
+class BuyBooksServiceTest {
 
     @Mock
-    public CreateBillPort createBillPort;
+    private CreateBillPort createBillPort;
     @Mock
-    public EditBookPort editBookPort;
+    private EditBookPort editBookPort;
     @Mock
-    public ReadBooksPort readBooksPort;
+    private ReadBooksPort readBooksPort;
 
     @InjectMocks
-    public BuyBooksService buyBooksService;
+    BuyBooksService buyBooksService;
 
 
     @Test
-    public void buyBooks_enoughBooks() {
+    void buyBooks_enoughBooks() {
         Book book = MockData.getMockedBook();
         Bill bill = MockData.getMockedBill();
 
@@ -46,7 +46,7 @@ public class BuyBooksServiceTest {
     }
 
     @Test
-    public void buyBooks_notEnoughBooks() {
+    void buyBooks_notEnoughBooks() {
         Book book = MockData.getMockedBook();
         book.setStockAmount(0);
         Bill bill = MockData.getMockedBill();

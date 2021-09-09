@@ -2,8 +2,6 @@ package com.adesso.commentator.bookstore.domain;
 
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;

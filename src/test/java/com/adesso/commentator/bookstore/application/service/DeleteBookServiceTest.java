@@ -10,16 +10,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-public class DeleteBookServiceTest {
+class DeleteBookServiceTest {
 
     @Mock
-    public DeleteBookPort deleteBookPort;
+    private DeleteBookPort deleteBookPort;
 
     @InjectMocks
-    public DeleteBookService deleteBookService;
+    private DeleteBookService deleteBookService;
 
     @Test
-    public void deleteBookById() {
+    void deleteBookById() {
         deleteBookService.deleteBookById(1);
 
         verify(deleteBookPort).deleteBookById(1);

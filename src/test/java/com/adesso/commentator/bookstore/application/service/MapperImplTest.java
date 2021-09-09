@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class MapperImplTest {
+class MapperImplTest {
 
     @Mock
     private ReadBooksQuery readBooksQuery;
@@ -27,7 +27,7 @@ public class MapperImplTest {
     private MapperImpl mapper;
 
     @Test
-    public void billingBookToDomain() {
+    void billingBookToDomain() {
         BillBookDto dto = MockData.getMockedBillBookDto();
         Book book = MockData.getMockedBook();
         BillingBook billingBook = new BillingBook(
@@ -42,7 +42,7 @@ public class MapperImplTest {
     }
 
     @Test
-    public void billToDomain() {
+    void billToDomain() {
         BillDto dto = MockData.getMockedBillDto();
 
         when(readBooksQuery.readBookById(dto.getBooks().get(0).getId())).thenReturn(MockData.getMockedBook());

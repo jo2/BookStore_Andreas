@@ -14,19 +14,19 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class CreateBookServiceTest {
+class CreateBookServiceTest {
 
     @Mock
-    public CreateBookPort createBookPort;
+    private CreateBookPort createBookPort;
 
     @Mock
-    public ReadBooksPort readBooksPort;
+    private ReadBooksPort readBooksPort;
 
     @InjectMocks
-    public CreateBookService createBookService;
+    private CreateBookService createBookService;
 
     @Test
-    public void createBook_valid() {
+    void createBook_valid() {
         Book book = MockData.getMockedBook();
 
         when(readBooksPort.existsBookByTitleAndAuthor("ti", "au")).thenReturn(false);
@@ -37,7 +37,7 @@ public class CreateBookServiceTest {
     }
 
     @Test
-    public void createBook_duplicateBook() {
+    void createBook_duplicateBook() {
         Book book = MockData.getMockedBook();
 
         when(readBooksPort.existsBookByTitleAndAuthor("ti", "au")).thenReturn(true);

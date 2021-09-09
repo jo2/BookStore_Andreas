@@ -13,26 +13,27 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class CartAdapterTest {
+class CartAdapterTest {
 
     @Mock
-    HashMap<String, List<BillBookDto>> carts;
+    private HashMap<String, List<BillBookDto>> carts;
 
     @InjectMocks
-    CartAdapter cartAdapter;
+    private CartAdapter cartAdapter;
 
     @Test
-    public void addToCart_newUser() {
+    void addToCart_newUser() {
         String user = "Hello World";
         List<BillBookDto> userBooks = new ArrayList<>();
         BillBookDto book = new BillBookDto();
 
-        when(carts.containsKey(user)).thenReturn(false);
+        when(carts.computeIfAbsent(anyString(), any())).thenReturn(null);
         when(carts.get(user)).thenReturn(userBooks);
 
         cartAdapter.addToCart(book, user);
@@ -43,12 +44,12 @@ public class CartAdapterTest {
     }
 
     @Test
-    public void addToCart_knownUser() {
+    void addToCart_knownUser() {
         String user = "Hello World";
         List<BillBookDto> userBooks = new ArrayList<>();
         BillBookDto book = new BillBookDto();
 
-        when(carts.containsKey(user)).thenReturn(true);
+        when(carts.computeIfAbsent(anyString(), any())).thenReturn(userBooks);
         when(carts.get(user)).thenReturn(userBooks);
 
         cartAdapter.addToCart(book, user);
@@ -57,7 +58,7 @@ public class CartAdapterTest {
     }
 
     @Test
-    public void removeFromCart() {
+    void removeFromCart() {
         String user = "Hello World";
         List<BillBookDto> userBooks = new ArrayList<>();
         BillBookDto book = new BillBookDto(), book2 = new BillBookDto();
@@ -78,7 +79,7 @@ public class CartAdapterTest {
     }
 
     @Test
-    public void clearCart() {
+    void clearCart() {
         String user = "Hello World";
         cartAdapter.clearCart(user);
 

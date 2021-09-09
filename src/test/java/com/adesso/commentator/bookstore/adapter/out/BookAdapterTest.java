@@ -21,16 +21,16 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class BookAdapterTest {
+class BookAdapterTest {
 
     @Mock
-    public BookRepository repository;
+    private BookRepository repository;
 
     @InjectMocks
-    public BookAdapter bookAdapter;
+    private BookAdapter bookAdapter;
 
     @Test
-    public void createBook() {
+    void createBook() {
         Book book = MockData.getMockedBook();
         com.adesso.commentator.bookstore.adapter.out.entities.Book dto = Mapper.toDto(book);
 
@@ -40,14 +40,14 @@ public class BookAdapterTest {
     }
 
     @Test
-    public void deleteBookById_existing() {
+    void deleteBookById_existing() {
         bookAdapter.deleteBookById(1);
 
         verify(repository).deleteById(1L);
     }
 
     @Test
-    public void deleteBookById_notExisting() {
+    void deleteBookById_notExisting() {
         doThrow(new EmptyResultDataAccessException(1)).when(repository).deleteById(1L);
 
         assertThatThrownBy(() -> bookAdapter.deleteBookById(1L))
@@ -55,7 +55,7 @@ public class BookAdapterTest {
     }
 
     @Test
-    public void readAllBooks() {
+    void readAllBooks() {
         List<Book> books = MockData.getMockedBooks();
         List<com.adesso.commentator.bookstore.adapter.out.entities.Book> dtos = books.stream().map(Mapper::toDto).collect(Collectors.toList());
 
@@ -65,7 +65,7 @@ public class BookAdapterTest {
     }
 
     @Test
-    public void readBookById() {
+    void readBookById() {
         Book book = MockData.getMockedBook();
         com.adesso.commentator.bookstore.adapter.out.entities.Book dto = Mapper.toDto(book);
 
@@ -75,21 +75,21 @@ public class BookAdapterTest {
     }
 
     @Test
-    public void readIdByTitleAndAuthor_existing() {
+    void readIdByTitleAndAuthor_existing() {
         Book book = MockData.getMockedBook();
         when(repository.findBookByTitleAndAuthor(book.getTitle(), book.getAuthor())).thenReturn(Mapper.toDto(book));
         assertThat(bookAdapter.readIdByTitleAndAuthor(book.getTitle(), book.getAuthor())).isEqualTo(book.getId());
     }
 
     @Test
-    public void readIdByTitleAndAuthor_notExisting() {
+    void readIdByTitleAndAuthor_notExisting() {
         Book book = MockData.getMockedBook();
         when(repository.findBookByTitleAndAuthor(book.getTitle(), book.getAuthor())).thenReturn(null);
         assertThat(bookAdapter.readIdByTitleAndAuthor(book.getTitle(), book.getAuthor())).isNull();
     }
 
     @Test
-    public void existsBookByTitleAndAuthor_True() {
+    void existsBookByTitleAndAuthor_True() {
         String title = "ti", author = "au";
 
         when(repository.existsBookByTitleAndAuthor(title, author)).thenReturn(true);
@@ -98,7 +98,7 @@ public class BookAdapterTest {
     }
 
     @Test
-    public void existsBookByTitleAndAuthor_False() {
+    void existsBookByTitleAndAuthor_False() {
         String title = "ti", author = "au";
 
         when(repository.existsBookByTitleAndAuthor(title, author)).thenReturn(false);
@@ -107,7 +107,7 @@ public class BookAdapterTest {
     }
 
     @Test
-    public void editBook() {
+    void editBook() {
         Book book = MockData.getMockedBook();
         com.adesso.commentator.bookstore.adapter.out.entities.Book dto = Mapper.toDto(book);
 

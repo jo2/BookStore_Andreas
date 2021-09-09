@@ -22,20 +22,20 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class BillAdapterTest {
+class BillAdapterTest {
 
     @Mock
-    public BillRepository repository;
+    private BillRepository repository;
 
     @Mock
-    public BillingBookRepository billingBookRepository;
+    private BillingBookRepository billingBookRepository;
 
     @InjectMocks
-    public BillAdapter billAdapter;
+    private BillAdapter billAdapter;
 
 
     @Test
-    public void createBill() {
+    void createBill() {
         List<BillingBook> books = Collections.singletonList(MockData.getMockedBillingBook());
         Bill bill = new Bill(books);
 
@@ -48,7 +48,7 @@ public class BillAdapterTest {
     }
 
     @Test
-    public void readBillById() {
+    void readBillById() {
         Bill bill = MockData.getMockedBill();
         com.adesso.commentator.bookstore.adapter.out.entities.Bill dtoBill = Mapper.toDto(bill);
 
@@ -58,7 +58,7 @@ public class BillAdapterTest {
     }
 
     @Test
-    public void readAllBills() {
+    void readAllBills() {
         List<Bill> bills = MockData.getMockedBills();
         List<com.adesso.commentator.bookstore.adapter.out.entities.Bill> dtoBills = bills.stream().map(Mapper::toDto).collect(Collectors.toList());
 

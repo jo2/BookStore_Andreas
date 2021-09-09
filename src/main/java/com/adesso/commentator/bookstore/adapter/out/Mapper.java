@@ -4,13 +4,11 @@ import com.adesso.commentator.bookstore.adapter.out.entities.BillingBook;
 import com.adesso.commentator.bookstore.domain.Bill;
 import com.adesso.commentator.bookstore.domain.Book;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.stream.Collectors;
 
 public class Mapper {
 
-    private static final ZoneOffset defaultOffset = ZoneOffset.ofTotalSeconds(0);
+    private Mapper() {}
 
      public static com.adesso.commentator.bookstore.adapter.out.entities.Bill toDto(Bill bill) {
          if (bill == null) return null;

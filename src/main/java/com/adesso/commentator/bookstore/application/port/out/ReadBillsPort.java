@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ReadBillsPort {
 
-    Bill readBillById(long bill_id);
+    Bill readBillById(long billId);
 
     List<Bill> readAllBills();
 

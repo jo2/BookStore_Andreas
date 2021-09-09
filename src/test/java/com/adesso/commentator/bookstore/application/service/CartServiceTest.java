@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CartServiceTest {
+class CartServiceTest {
 
     @Mock
     private CartPort cartPort;
@@ -35,7 +35,7 @@ public class CartServiceTest {
     private CartService cartService;
 
     @Test
-    public void addToCart() {
+    void addToCart() {
         BillBookDto dto = MockData.getMockedBillBookDto();
         String user = "Hello World";
 
@@ -45,7 +45,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void removeFromCart() {
+    void removeFromCart() {
         BillBookDto dto = MockData.getMockedBillBookDto();
         String user = "Hello World";
 
@@ -55,7 +55,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void getCart_existing() {
+    void getCart_existing() {
         String user = "Hello World";
 
         when(cartPort.getCart(user)).thenReturn(mockedCart);
@@ -65,7 +65,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void getCart_notExisting() {
+    void getCart_notExisting() {
         String user = "Hello World";
 
         when(cartPort.getCart(user)).thenReturn(null);
@@ -74,7 +74,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void modifyCart() {
+    void modifyCart() {
         BillBookDto book = MockData.getMockedBillBookDto();
         String user = "Hello World";
 
@@ -85,7 +85,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void clearCart() {
+    void clearCart() {
         String user = "Hello World";
 
         cartService.clearCart(user);

@@ -15,16 +15,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class ReadBooksServiceTest {
+class ReadBooksServiceTest {
 
     @Mock
-    public ReadBooksPort readBooksPort;
+    private ReadBooksPort readBooksPort;
 
     @InjectMocks
-    public ReadBooksService readBooksService;
+    private ReadBooksService readBooksService;
 
     @Test
-    public void readBookById() {
+    void readBookById() {
         Book book = MockData.getMockedBook();
         when(readBooksPort.readBookById(book.getId())).thenReturn(book);
 
@@ -32,7 +32,7 @@ public class ReadBooksServiceTest {
     }
 
     @Test
-    public void readAllBooks() {
+    void readAllBooks() {
         List<Book> books = MockData.getMockedBooks();
         when(readBooksPort.readAllBooks()).thenReturn(books);
 
@@ -40,7 +40,7 @@ public class ReadBooksServiceTest {
     }
 
     @Test
-    public void existsBookByTitleAndAuthor_True() {
+    void existsBookByTitleAndAuthor_True() {
         String title = "Hello World", author = "Programmer";
 
         when(readBooksPort.existsBookByTitleAndAuthor(title, author)).thenReturn(true);
@@ -49,7 +49,7 @@ public class ReadBooksServiceTest {
     }
 
     @Test
-    public void existsBookByTitleAndAuthor_False() {
+    void existsBookByTitleAndAuthor_False() {
         String title = "Hello World", author = "Programmer";
 
         when(readBooksPort.existsBookByTitleAndAuthor(title, author)).thenReturn(false);

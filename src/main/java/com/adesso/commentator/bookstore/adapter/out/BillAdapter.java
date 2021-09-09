@@ -28,8 +28,8 @@ public class BillAdapter implements ReadBillsPort, CreateBillPort {
     }
 
     @Override
-    public Bill readBillById(long bill_id) {
-        return Mapper.toDomain(repository.findById(bill_id).orElse(null));
+    public Bill readBillById(long billId) {
+        return Mapper.toDomain(repository.findById(billId).orElse(null));
     }
 
     @Override

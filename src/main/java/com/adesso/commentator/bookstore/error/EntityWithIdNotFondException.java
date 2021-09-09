@@ -1,6 +1,5 @@
 package com.adesso.commentator.bookstore.error;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,8 +7,8 @@ import lombok.EqualsAndHashCode;
 @Data
 public class EntityWithIdNotFondException extends IllegalArgumentException {
 
-    Class<?> entityType;
-    Long id;
+    final Class<?> entityType;
+    final Long id;
 
     public EntityWithIdNotFondException(Class<?> entityType, Long id, String message) {
         super(message);

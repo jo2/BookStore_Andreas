@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class ApiControllerTest {
+class ApiControllerTest {
 
     @Mock
     private ReadBooksQuery readBooksQuery;
@@ -52,7 +52,7 @@ public class ApiControllerTest {
 
 
     @Test
-    public void getAllBooks() {
+    void getAllBooks() {
         List<Book> books = MockData.getMockedBooks();
 
         when(readBooksQuery.readAllBooks()).thenReturn(books);
@@ -61,7 +61,7 @@ public class ApiControllerTest {
     }
 
     @Test
-    public void getBookById() {
+    void getBookById() {
         Book book = MockData.getMockedBook();
 
         when(readBooksQuery.readBookById(book.getId())).thenReturn(book);
@@ -70,7 +70,7 @@ public class ApiControllerTest {
     }
 
     @Test
-    public void createBook() {
+    void createBook() {
         Book book = MockData.getMockedBook();
 
         when(createBookUseCase.createBook(book)).thenReturn(book);
@@ -79,7 +79,7 @@ public class ApiControllerTest {
     }
 
     @Test
-    public void editBook() {
+    void editBook() {
         Book book = MockData.getMockedBook();
 
         when(editBookUseCase.editBook(book)).thenReturn(book);
@@ -88,13 +88,13 @@ public class ApiControllerTest {
     }
 
     @Test
-    public void deleteBook() {
+    void deleteBook() {
         controller.deleteBook(1);
         verify(deleteBookUseCase).deleteBookById(1);
     }
 
     @Test
-    public void buyBooks() {
+    void buyBooks() {
         BillDto billdto = MockData.getMockedBillDto();
         Bill bill = MockData.getMockedBill();
         Book book = MockData.getMockedBook();
@@ -108,7 +108,7 @@ public class ApiControllerTest {
     }
 
     @Test
-    public void getAllBills() {
+    void getAllBills() {
         List<Bill> bills = MockData.getMockedBills();
 
         when(readBillsQuery.readAllBills()).thenReturn(bills);

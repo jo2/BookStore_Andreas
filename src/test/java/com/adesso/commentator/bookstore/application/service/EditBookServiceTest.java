@@ -14,19 +14,19 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-public class EditBookServiceTest {
+class EditBookServiceTest {
 
     @Mock
-    public EditBookPort editBookPort;
+    private EditBookPort editBookPort;
 
     @Mock
-    public ReadBooksPort readBooksPort;
+    private ReadBooksPort readBooksPort;
 
     @InjectMocks
-    public EditBookService editBookService;
+    private EditBookService editBookService;
 
     @Test
-    public void editBook_valid() {
+    void editBook_valid() {
         Book book = MockData.getMockedBook();
 
         when(readBooksPort.readIdByTitleAndAuthor(book.getTitle(), book.getAuthor())).thenReturn(book.getId());
@@ -37,7 +37,7 @@ public class EditBookServiceTest {
     }
 
     @Test
-    public void editBook_DuplicateAuthorTitle() {
+    void editBook_DuplicateAuthorTitle() {
         Book book = MockData.getMockedBook();
 
         when(readBooksPort.readIdByTitleAndAuthor(book.getTitle(), book.getAuthor())).thenReturn(-1L);

@@ -7,7 +7,6 @@ import com.adesso.commentator.bookstore.error.EntityWithIdNotFondException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 

@@ -7,7 +7,6 @@ import com.adesso.commentator.bookstore.application.port.in.query.GetCartQuery;
 import com.adesso.commentator.bookstore.application.port.in.query.ReadBillsQuery;
 import com.adesso.commentator.bookstore.application.port.in.query.ReadBooksQuery;
 import com.adesso.commentator.bookstore.application.port.in.usecase.*;
-import com.adesso.commentator.bookstore.domain.Bill;
 import com.adesso.commentator.bookstore.domain.BillingBook;
 import com.adesso.commentator.bookstore.domain.Book;
 import lombok.Data;
@@ -16,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +28,10 @@ import java.util.stream.Collectors;
 
 @Controller
 public class PageController {
+
+    private static final String RED_IND = "redirect:/index";
+    private static final String RED_SHOPPING = "redirect:/shopping_cart";
+    private static final String ERROR = "error";
 
     @Autowired
     ReadBooksQuery readBooksQuery;
@@ -91,12 +93,11 @@ public class PageController {
         try {
             createBookUseCase.createBook(book);
             model.addAttribute("success", "true");
-            return "redirect:/";
+            return RED_IND;
         } catch(Exception e) {
-            attributes.addFlashAttribute("book", book);
-            attributes.addFlashAttribute("error", e.getLocalizedMessage());
+            model.addAttribute(ERROR, e.getLocalizedMessage());
         }
-        return "redirect:/add_book";
+        return "add_book";
     }
 
     @GetMapping("book/{id}")
@@ -108,7 +109,7 @@ public class PageController {
     @PostMapping("book/delete/{id}")
     public String deleteBook(@PathVariable("id") long id, Model model) {
         deleteBookUseCase.deleteBookById(id);
-        return "redirect:/index";
+        return RED_IND;
     }
 
     @GetMapping({"book/edit/{id}"})
@@ -122,10 +123,10 @@ public class PageController {
         book.setId(id);
         try {
             editBookUseCase.editBook(book);
-            return "redirect:/index";
+            return RED_IND;
         } catch(Exception e) {
             attributes.addFlashAttribute("book", book);
-            attributes.addFlashAttribute("error", e.getMessage());
+            attributes.addFlashAttribute(ERROR, e.getMessage());
             return "redirect:/book/edit/"+id;
         }
     }
@@ -133,21 +134,20 @@ public class PageController {
     @PostMapping("/cart/add/{id}")
     public String shoppingCartAdd(@PathVariable("id") long id, Model model, HttpSession session) {
         addToCartUseCase.addToCart(new BillBookDto(id, 1, 0), session.getId());
-        return "redirect:/index";
+        return RED_IND;
     }
 
     @PostMapping("/cart/remove/{id}")
     public String shoppingCartRemove(@PathVariable("id") long id, Model model, HttpSession session) {
         removeFromCartUseCase.removeFromCart(new BillBookDto(id, 1, 0), session.getId());
-        return "redirect:/shopping_cart";
+        return RED_SHOPPING;
     }
 
     @PostMapping("/cart/modify")
     public String modifyCart(@ModelAttribute @Valid BillBookDto book, Model model, HttpSession session) {
-        log.info(book.toString());
         modifyCartUseCase.modifyCart(book, session.getId());
 
-        return "redirect:/shopping_cart";
+        return RED_SHOPPING;
     }
 
     @GetMapping({"cart", "shopping_cart", "/shopping_cart.html"})
@@ -166,15 +166,15 @@ public class PageController {
             clearCartUseCase.clearCart(session.getId());
             return "redirect:/accounting";
         } catch(Exception e) {
-            attributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/cart";
+            attributes.addFlashAttribute(ERROR, e.getMessage());
+            return RED_SHOPPING;
         }
     }
 
     @PostMapping("/cart/clear")
     public String clearCart(HttpSession session) {
         clearCartUseCase.clearCart(session.getId());
-        return "redirect:/cart";
+        return RED_SHOPPING;
     }
 
     @Data
