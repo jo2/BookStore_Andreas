@@ -39,7 +39,7 @@
                                         th:value="${book.orderAmount}"
                                         name="orderAmount"
                                         min="1" max="6" required
-                                        onchange="this.form.submit()"
+                                        onchange="if(this.valid) this.form.submit()"
                                 >
                                 <input type="submit" hidden>
                             </td>
@@ -52,7 +52,7 @@
                                         th:value="${book.discount}"
                                         name="discount"
                                         min="0" max="20" step="0.01" required
-                                        onchange="this.form.submit()"
+                                        onchange="if(this.valid) this.form.submit()"
                                 >
                             </td>
                             <td th:text="|${book.totalAmount} €|">-404.00 €</td>
