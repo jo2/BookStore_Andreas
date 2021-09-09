@@ -20,7 +20,7 @@ public class EditBookService implements EditBookUseCase {
     @Override
     public Book editBook(@Valid Book book) {
         Long foundId = readBooksPort.readIdByTitleAndAuthor(book.getTitle(), book.getAuthor());
-        if (foundId == null || !Objects.equals(foundId, book.getId())) {
+        if (foundId != null && !Objects.equals(foundId, book.getId())) {
             throw new IllegalArgumentException("Combination of Title and Author must be unique");
         }
         return editBookPort.editBook(book);
